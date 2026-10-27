@@ -1,0 +1,17 @@
+line-length = 80
+target-version = "py312"
+
+[lint]
+select = [
+    "E",   # pycodestyle: ошибки
+    "W",   # pycodestyle: предупреждения
+    "F",   # pyflakes
+    "I",   # порядок импортов
+    "B",   # bugbear: типичные ошибки
+    "UP",  # современный синтаксис Python
+    "C90", # цикломатическая сложность
+    "SIM", # упрощения
+]
+
+[lint.mccabe]
+max-complexity = 8

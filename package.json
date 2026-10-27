@@ -1,0 +1,12 @@
+{
+  "name": "url-shortener-ui",
+  "private": true,
+  "description": "UI сокращателя ссылок: готовый пакет Хекслета и concurrently для make dev",
+  "scripts": {
+    "frontend": "start-hexlet-devops-deploy-crud-frontend"
+  },
+  "dependencies": {
+    "@hexlet/project-devops-deploy-crud-frontend": "^1.0.4",
+    "concurrently": "^10.0.6"
+  }
+}

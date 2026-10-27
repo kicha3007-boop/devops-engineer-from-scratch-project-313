@@ -1,0 +1,55 @@
+# Локальный Bugsink 2.6.2 (docker compose --profile monitoring), 2026-10-27T11:36:12Z
+# Ошибка вызвана через Caddy: curl -i http://localhost:8090/api/debug/error -> HTTP/1.1 500
+# Приложение запущено с SENTRY_DSN=http://<ключ>@bugsink:8000/1 и ENABLE_DEBUG_ROUTES=true
+
+$ curl -H 'Authorization: Bearer <token>' 'http://localhost:8000/api/canonical/0/issues/?project=1'
+{
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "id": "fc5a839c-0b63-46e1-80a8-29a90983c96f",
+            "friendly_id": "URL-SHORTENER-1",
+            "project": 1,
+            "digest_order": 1,
+            "last_seen": "2026-10-27T11:35:33.870328Z",
+            "first_seen": "2026-10-27T11:35:33.870328Z",
+            "digested_event_count": 1,
+            "stored_event_count": 1,
+            "calculated_type": "DebugError",
+            "calculated_value": "Проверка Bugsink: намеренная ошибка из /api/debug/error",
+            "transaction": "/api/debug/error",
+            "is_resolved": false,
+            "is_resolved_unconditionally": false,
+            "is_resolved_by_next_release": false,
+            "fixed_at": [],
+            "events_at": [
+                ""
+            ],
+            "is_muted": false,
+            "unmute_after": null,
+            "unmute_on_volume_based_conditions": []
+        }
+    ]
+}
+
+$ curl -H 'Authorization: Bearer <token>' 'http://localhost:8000/api/canonical/0/events/00f6729c-d135-4cd6-a3ce-169b0e4f8596/'
+# (поля data и stacktrace_md сокращены: показано начало трейса, где видно исключение)
+{
+    "id": "00f6729c-d135-4cd6-a3ce-169b0e4f8596",
+    "ingested_at": "2026-10-27T11:35:33.870328Z",
+    "digested_at": "2026-10-27T11:35:33.882902Z",
+    "issue": "fc5a839c-0b63-46e1-80a8-29a90983c96f",
+    "grouping": 1,
+    "event_id": "fe409301-fd2d-4562-b98f-d6b2a706d03b",
+    "project": 1,
+    "timestamp": "2026-10-27T11:35:33.559059Z",
+    "digest_order": 1
+}
+
+# DebugError
+Проверка Bugsink: намеренная ошибка из /api/debug/error
+...
+### anyio/_backends/_asyncio.py:1100 in `run` [external]
+### fastapi/telemetry/_api.py:244 in `_run_sync_endpoint` [external]
+### shortener/routers/debug.py:18 in `raise_error` [in-app]
